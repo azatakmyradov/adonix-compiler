@@ -39,7 +39,7 @@ class Adonix {
     }
 
     sync(folder, target, destination) {
-        const command = `mov ${this.root_path}\\${target} ${this.folders_path}\\${folder}\\TRT\\${destination}.src`;
+        const command = `move ${this.root_path}\\${target} ${this.folders_path}\\${folder}\\TRT\\${destination}.src`;
 
         console.log(command)
     
