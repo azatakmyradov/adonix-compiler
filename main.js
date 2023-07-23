@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const multer = require("multer");
 const bodyParser = require("body-parser");
+const logger = require("pino")();
 require("dotenv").config();
 
 // Default paths
@@ -16,6 +17,13 @@ const Adonix = require("./src/Adonix.js");
 const adx = new Adonix(X3_PATH, ROOT_PATH);
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+if (process.env.ENV === "DEV") {
+  app.use((req, res, next) => {
+    logger.info(req);
+    next();
+  });
+}
 
 /*
  * Returns JSON to check if the server is up
@@ -72,5 +80,6 @@ app.post("/:folder/upload", upload.single("file"), (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Compiler is listening on port: http://localhost:${port}`);
+  const startMessage = `Compiler is listening on port: http://localhost:${port}`;
+  logger.info(startMessage);
 });

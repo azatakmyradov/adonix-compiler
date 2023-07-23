@@ -1,4 +1,5 @@
 const exec = require("child_process").exec;
+const logger = require("pino")();
 
 class Command {
   /*
@@ -15,7 +16,8 @@ class Command {
         function (error, stdout, stderr) {
           const result = callback(stdout);
 
-          console.log(stderr);
+          logger.error(error);
+          logger.info(stderr);
 
           resolve(result);
         }
